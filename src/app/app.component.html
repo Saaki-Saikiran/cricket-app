@@ -1,0 +1,148 @@
+<div style="text-align:center">
+  <h1>
+    Welcome to {{title}}!
+  </h1>
+</div>
+
+<div *ngIf="currentTeam == ''">
+  <h3>Result : {{result}}</h3>
+</div>
+<h3>Team A</h3>
+<button class="button button2" *ngIf=" currentTeam=='teamA'" (click)=" startGame()">{{buttonName}}</button>
+Score : {{teams.teamA.score}} / {{teams.teamA.wickets}} | Overs :
+{{math.floor((teams.teamA.balls)/6)}}.{{(teams.teamA.balls)%6}}
+<hr />
+Over wise : {{teams.teamA.overwise.join(' | ')}} <span *ngIf="currentTeam == 'teamA'">|
+  {{currentOverScores.join(' ')}}</span>
+<hr />
+
+<div *ngIf="teamAdata">
+  <h4>Batsmen</h4>
+  <table id="batting">
+    <tr>
+      <th>Batsmen name
+      </th>
+      <th>Runs</th>
+      <th>zeros</th>
+      <th>4s</th>
+      <th>6s</th>
+      <th>Wicket by</th>
+      <th>Balls faced</th>
+      <th>SR</th>
+    </tr>
+    <tr *ngFor="let player of teams.teamA.players">
+      <ng-container *ngIf="player.bating.played">
+        <td>{{player.name}}
+          <span *ngIf="(player.bating?.wicketBy) == '' || (player.bating?.wicketBy) == null">*</span>
+        </td>
+        <td>{{player.bating?.runs}}</td>
+        <td>{{player.bating?.zeros}}</td>
+        <td>{{player.bating?.fours}}</td>
+        <td>{{player.bating?.sixes}}</td>
+        <td>{{player.bating?.wicketBy}}</td>
+        <td>{{player.bating?.balls}}</td>
+        <td>{{player.bating?.strikeRate | number : '1.2-2'}}</td>
+      </ng-container>
+    </tr>
+  </table>
+  <hr />
+  <h4>Bowler</h4>
+
+  <table id="batting">
+    <tr>
+      <th>Bowler name</th>
+      <th>Overs</th>
+      <th>Runs</th>
+      <th>Wickets</th>
+      <th>Econ</th>
+      <th>zeros</th>
+      <th>4s</th>
+      <th>6s</th>
+      <th>WD</th>
+      <th>NB</th>
+    </tr>
+    <tr *ngFor="let player of teams.teamB.players">
+      <ng-container *ngIf="player.bowling.played">
+        <td>{{player.name}}</td>
+        <td>{{ballsToOver(player.bowling?.balls)}}</td>
+        <td>{{player.bowling?.runs}}</td>
+        <td>{{player.bowling?.wickets}}</td>
+        <td>{{player.bowling?.econ | number : '1.2-2'}}</td>
+        <td>{{player.bowling?.zeros}}</td>
+        <td>{{player.bowling?.fours}}</td>
+        <td>{{player.bowling?.sixes}}</td>
+        <td>{{player.bowling?.wides}}</td>
+        <td>{{player.bowling?.noBalls}}</td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
+
+<h3>Team B</h3>
+<button class="button button2" *ngIf="currentTeam == 'teamB'" (click)="startGame()">{{buttonName}}</button>
+Score : {{teams.teamB.score}} / {{teams.teamB.wickets}} | Target : {{teams.teamA.score}} | Overs :
+{{math.floor((teams.teamB.balls)/6)}}.{{(teams.teamB.balls)%6}}
+<hr />
+Over wise : {{teams.teamB.overwise.join(' | ')}} <span *ngIf="currentTeam == 'teamB'">|
+  {{currentOverScores.join(' ')}}</span>
+<hr />
+<div *ngIf="teamBdata">
+  <h4>Batsmen</h4>
+  <table id="batting">
+    <tr>
+      <th>Batsmen name</th>
+      <th>Runs</th>
+      <th>zeros</th>
+      <th>4s</th>
+      <th>6s</th>
+      <th>Wicket by</th>
+      <th>Balls faced</th>
+      <th>SR</th>
+    </tr>
+    <tr *ngFor="let player of teams.teamB.players">
+      <ng-container *ngIf="player.bating.played">
+        <td>{{player.name}}
+          <span *ngIf="(player.bating?.wicketBy) == '' || (player.bating?.wicketBy) == null">*</span>
+        </td>
+        <td>{{player.bating?.runs}}</td>
+        <td>{{player.bating?.zeros}}</td>
+        <td>{{player.bating?.fours}}</td>
+        <td>{{player.bating?.sixes}}</td>
+        <td>{{player.bating?.wicketBy}}</td>
+        <td>{{player.bating?.balls}}</td>
+        <td>{{player.bating?.strikeRate | number : '1.2-2'}}</td>
+      </ng-container>
+    </tr>
+  </table>
+  <hr />
+  <h4>Bowler</h4>
+  <table id="batting">
+    <tr>
+      <th>Bowler name</th>
+      <th>Overs</th>
+      <th>Runs</th>
+      <th>Wickets</th>
+      <th>Econ</th>
+      <th>zeros</th>
+      <th>4s</th>
+      <th>6s</th>
+      <th>WD</th>
+      <th>NB</th>
+    </tr>
+    <tr *ngFor="let player of teams.teamA.players">
+      <ng-container *ngIf="player.bowling.played">
+        <td>{{player.name}}</td>
+        <td>{{ballsToOver(player.bowling?.balls)}}</td>
+        <td>{{player.bowling?.runs}}</td>
+        <td>{{player.bowling?.wickets}}</td>
+        <td>{{player.bowling?.econ | number : '1.2-2'}}</td>
+        <td>{{player.bowling?.zeros}}</td>
+        <td>{{player.bowling?.fours}}</td>
+        <td>{{player.bowling?.sixes}}</td>
+        <td>{{player.bowling?.wides}}</td>
+        <td>{{player.bowling?.noBalls}}</td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
+<hr />
